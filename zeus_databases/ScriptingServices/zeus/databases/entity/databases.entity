@@ -3,7 +3,7 @@
   "tableName":"ZEUS_DATABASES",
   "tableType":"TABLE",
   "serviceName":"databases.js",
-  "libraryName":"databasesDao.js",
+  "libraryName":"databases_lib.js",
   "specification":"databases.swagger",
   "getEnabled":"true",
   "postEnabled":"true",

@@ -3,7 +3,7 @@
 
 var database = require('db/database');
 var datasource = database.getDatasource();
-var databasesDaoExtensionsUtils = require('zeus/databases/databasesDaoExtensionUtils');
+var databasesDaoExtensionsUtils = require('zeus/databases/utils/databasesDaoExtensionUtils');
 var user = require("net/http/user");
 
 // Create an entity
@@ -84,7 +84,7 @@ exports.list = function(limit, offset, sort, desc) {
 exports.update = function(entity) {
     var connection = datasource.getConnection();
     try {
-        var sql = 'UPDATE ZEUS_DATABASES SET DB_NAME = ?,DB_TYPE = ?,DB_URL = ?,DB_USERNAME = ?,DB_PASSWORD = ? WHERE DB_ID = ?';
+        var sql = 'UPDATE ZEUS_DATABASES SET   DB_NAME = ?, DB_TYPE = ?, DB_URL = ?, DB_USERNAME = ?, DB_PASSWORD = ? WHERE DB_ID = ?';
         var statement = connection.prepareStatement(sql);
         var i = 0;
         statement.setString(++i, entity.db_name);
@@ -92,8 +92,7 @@ exports.update = function(entity) {
         statement.setString(++i, entity.db_url);
         statement.setString(++i, entity.db_username);
         statement.setString(++i, entity.db_password);
-        var id = entity.db_id;
-        statement.setInt(++i, id);
+        statement.setInt(++i, entity.db_id);
 		databasesDaoExtensionsUtils.beforeUpdate(connection, entity);
         statement.executeUpdate();
         databasesDaoExtensionsUtils.afterUpdate(connection, entity);
